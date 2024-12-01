@@ -1,0 +1,76 @@
+.GameItem {
+    background-color: var(--blue-700);
+    padding: 0.75rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 15rem;
+    color: #FFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto; 
+    min-height: 20rem;
+}
+
+.GameItem img {
+    max-width: 100%;
+    max-height: 150px;
+    border-radius: 5px;
+    object-fit: cover; 
+    margin: auto; 
+    display: block; 
+}
+
+.GameLabel > h4 {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    font-size: 0.9rem; 
+}
+
+.GameLabel > h4:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    
+    color: var(--blue-800);
+    font-weight: 900;
+    font-size: 1rem;
+
+}
+
+.ActionButton {
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 8px;
+    transition: background-color 0.3s;
+  }
+  
+  .ActionButton:hover {
+    background-color: #005bb5;
+  }
+
+@media (max-width: 768px) {
+    .GameItem {
+        padding: 0.5rem;
+        max-width: 12rem;
+        min-height: 18rem;
+    }
+
+    .GameItem img {
+        max-height: 120px;
+    }
+
+    .GameLabel > h4 {
+        font-size: 0.8rem; 
+    }
+}

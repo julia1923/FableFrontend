@@ -1,0 +1,65 @@
+.Container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    background-color:  var(--blue-300);  
+}
+
+.Modal{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 3rem 7rem 3rem;
+    border-radius: 8px;
+    color: var(--blue-100);
+    background-color: var(--blue-400);
+    box-shadow: 2px 2px;
+}
+
+.Modal h1{
+    display: flex;
+    justify-content: center;
+}
+
+.Modal a{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.LoginForm{
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.LoginForm input {
+    background-color: var(--gray-100);
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--gray-100);
+
+}
+
+.LoginForm input:focus {
+    border: 1px solid gray;
+}
+
+.LoginForm button {
+    display: flex;
+    justify-content: center;
+    color: #FFF;
+    background-color: var(--blue-500);
+    padding: 0.5rem 0.2rem 0.5rem 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+}
+
+.LoginForm button:hover {
+    transform: scale(1.05);
+    background-color: #0056b3;
+}

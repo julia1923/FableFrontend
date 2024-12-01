@@ -1,0 +1,43 @@
+:root{
+  --blue-100:  #1999ff;
+  --blue-200: #1b2838; 
+  --blue-300: #181A21; 
+  --blue-400: #1C1E24; 
+  --blue-500: #007bff;
+  --blue-600: #0056b3; 
+  --blue-700: #2a475e;
+  --blue-800: #66c0f4;
+
+  --gray-100: #333333;
+}
+
+*{
+  font-family: "Inter", sans-serif;
+  box-sizing: border-box;
+
+}
+
+body{
+  margin: 0px;
+  padding: 0px; 
+}
+
+button {
+  all: unset;
+  cursor: pointer; 
+}
+
+input, textarea, select {
+  all: unset;
+  font-family: inherit; 
+  font-size: inherit;  
+  line-height: inherit; 
+  color: inherit; 
+  outline: none; 
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
