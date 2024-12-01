@@ -1,6 +1,13 @@
 # Fable
 
-Fable é um projeto desenvolvido com Vite, React e TypeScript. Ele utiliza uma estrutura modular com componentes, páginas e utilitários bem organizados, além de boas práticas como linting e tipagem estática.
+Fable é um projeto desenvolvido com Vite, React e TypeScript. Ele utiliza uma estrutura modular com componentes, páginas e utilitários bem organizados, além de boas práticas como linting e tipagem estática. Ele e pensado para ser uma aplicação com funcionalidades de login como criar conta e fazer o login de fato e nesse sistema o usuário poderia comprar jogos e ver os jogos que ele tem comprado em sua biblioteca se baseando como a steam funciona hoje 
+
+## Participantes 
+
+Renan Cesar Silveira / RA:12523216913 - 12523216913@ulife.com.br
+Julia Freitas Nascimento / RA:12523214930 - 12523214930@ullife.com.br
+Lucas Machado da Silva / RA:1252325224 - 1252325224@ulife.com.br
+Stefani Santos Dias / RA:1252326904 - 1252326904@ulife.com.br 
 
 ## 📂 Estrutura do Projeto
 ```
