@@ -9,6 +9,7 @@ import { jwtDecode } from 'jwt-decode'
 import axios from "axios";
 
 interface games  {
+  id: Number,
   name: string,
   price: string,
   image: string, 
@@ -19,7 +20,7 @@ const Home = () => {
   const [warning, setWarning] = useState<{ message: string; status: "success" | "failed" } | null>(null);
   const [storeGames, setStoreGames] = useState<games[]>([]); 
   const [libraryGames, setLibraryGames] = useState<games[]>([]);
-  const [user, setUser] = useState<{ username: string, useremail: string } | null>(null);
+  const [user, setUser] = useState<{ username: string, useremail: string, id: string } | null>(null);
   const navigate = useNavigate();
 
   const handleInstall = (gameName: string) => {
@@ -44,14 +45,35 @@ const Home = () => {
     setStoreGames((prev) => prev.filter((_, index) => index !== gameIndex));
     setLibraryGames((prev) => [...prev, game]);
 
-    setWarning({
-      message: `O jogo "${game.name}" foi comprado com sucesso!`,
-      status: "success",
-    });
+    axios.post('https://expert-barnacle-7v7gqv5pjwx43pq44-8080.app.github.dev/store/addNewStore ', {
+      //@ts-ignore
+      user: { id: user.id },
+      game: { id: game.id }
+    })
+      .then(response => {
+        setStoreGames((prev) => prev.filter((_, index) => index !== gameIndex));
+        setLibraryGames((prev) => [...prev, game]);
 
-    setTimeout(() => {
-      setWarning(null);
-    }, 3000);
+        setWarning({
+          message: `O jogo "${game.name}" foi comprado com sucesso!`,
+          status: "success",
+        });
+
+        setTimeout(() => {
+          setWarning(null);
+        }, 3000);
+      })
+      .catch(error => {
+        console.error('Erro ao comprar o jogo:', error);
+        setWarning({
+          message: `Erro ao comprar o jogo "${game.name}".`,
+          status: "failed",
+        });
+
+        setTimeout(() => {
+          setWarning(null);
+        }, 3000);
+      });
   };
 
   useEffect(() => {
@@ -60,7 +82,8 @@ const Home = () => {
     console.log("userCookie: ", userCookie)
     if (userCookie) {
       const user = jwtDecode(userCookie)
-      console.log("Decoded Token: ", user);
+      //@ts-ignore
+      setUser({useremail: user.email, id:user.id, username:user.sub})
 
      //@ts-ignore
      axios.get(`https://expert-barnacle-7v7gqv5pjwx43pq44-8080.app.github.dev/games/all`)
@@ -69,6 +92,7 @@ const Home = () => {
 
        // Formatação dos jogos da loja
        const formattedStoreGames = games.map((item: any) => ({
+         id: item.id,
          name: item.name,
          price: item.price.toFixed(2),
          image: item.image || "default_image_url",
@@ -76,11 +100,13 @@ const Home = () => {
 
        setStoreGames(formattedStoreGames);
 
+       //@ts-ignore
        axios.get(`https://expert-barnacle-7v7gqv5pjwx43pq44-8080.app.github.dev/store/user/${user.id}`)
          .then(response => {
            const libraryData = response.data;
 
            const formattedLibraryGames = libraryData.map((item: any) => ({
+             id: item.game.id, 
              name: item.game.name,
              price: item.game.price.toFixed(2),
              image: item.game.image || "default_image_url",
@@ -88,7 +114,6 @@ const Home = () => {
 
            setLibraryGames(formattedLibraryGames);
 
-           // Filtrando jogos da loja que não estão na biblioteca
            const filteredStoreGames = formattedStoreGames.filter((game : games) =>
              !formattedLibraryGames.some((libraryGame: games) => libraryGame.name === game.name)
            );
@@ -142,7 +167,7 @@ const Home = () => {
             {libraryGames.length <= 0 && <h2>Nenhum jogo na sua biblioteca</h2>}
               {libraryGames.map((game, index) => (
                 <GameCard
-                  key={index}
+                  key={`${game.id}`}
                   name={game.name}
                   price={game.price}
                   image={game.image}
@@ -160,7 +185,7 @@ const Home = () => {
             {storeGames.length <= 0 && <h2>Nenhum jogo disponível</h2>}
             {storeGames.map((game, index) => (
                 <GameCard
-                  key={index}
+                  key={`${game.id}`}
                   name={game.name}
                   price={game.price}
                   image={game.image}

@@ -12,7 +12,8 @@ interface GameCardProps {
 const GameCard: React.FC<GameCardProps> = ({ name, price, image, buttonText, onButtonClick }) => {
   return (
     <div className={style.GameItem}>
-      <img src={image} alt={`Imagem de ${name}`} />
+      {image == "default_image_url" || "" ? <h5>Sem imagem disponível</h5>:  <img src={image} alt={`Imagem de ${name}`} />}
+     
       <div className={style.GameLabel}>
         <h4><Gamepad2 size={16} /> Nome: {name}</h4>
         <h4><DollarSign size={16} /> Preço: {price}</h4>
