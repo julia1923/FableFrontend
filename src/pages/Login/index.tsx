@@ -36,7 +36,6 @@ const Login = () => {
     };
     
     axios.request(options).then(function (response) {
-      console.log(response.data);
         document.cookie = `fable-auth-v.1.0.0=${encodeURIComponent(
           JSON.stringify(response.data.Bearer)
         )}; path=/; max-age=3600`; 
