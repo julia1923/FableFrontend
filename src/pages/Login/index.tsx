@@ -28,7 +28,7 @@ const Login = () => {
 
     const options = {
       method: 'POST',
-      url: 'https://expert-barnacle-7v7gqv5pjwx43pq44-8080.app.github.dev/auth',
+      url: `${process.env.API_URL}/auth`,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },

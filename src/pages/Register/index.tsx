@@ -33,14 +33,14 @@ const Register = () => {
     }
 
   try {
-      await axios.post('https://expert-barnacle-7v7gqv5pjwx43pq44-8080.app.github.dev/users/create', {
+      await axios.post(`${process.env.API_URL}/users/create`, {
         username: nome,
         email: email,
         password: password,
         avatar: '' 
       });
 
-      const authResponse = await axios.post('https://expert-barnacle-7v7gqv5pjwx43pq44-8080.app.github.dev/auth', null, {
+      const authResponse = await axios.post(`${process.env.API_URL}/auth`, null, {
         params: {
           email: email,
           password: password

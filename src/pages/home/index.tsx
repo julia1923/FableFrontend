@@ -45,7 +45,7 @@ const Home = () => {
     setStoreGames((prev) => prev.filter((_, index) => index !== gameIndex));
     setLibraryGames((prev) => [...prev, game]);
 
-    axios.post('https://expert-barnacle-7v7gqv5pjwx43pq44-8080.app.github.dev/store/addNewStore ', {
+    axios.post(`${process.env.API_URL}/store/addNewStore`, {
       //@ts-ignore
       user: { id: user.id },
       game: { id: game.id }
@@ -86,7 +86,7 @@ const Home = () => {
       setUser({useremail: user.email, id:user.id, username:user.sub})
 
      //@ts-ignore
-     axios.get(`https://expert-barnacle-7v7gqv5pjwx43pq44-8080.app.github.dev/games/all`)
+     axios.get(`${process.env.API_URL}/games/all`)
      .then(response => {
        const games = response.data;
 
@@ -101,7 +101,7 @@ const Home = () => {
        setStoreGames(formattedStoreGames);
 
        //@ts-ignore
-       axios.get(`https://expert-barnacle-7v7gqv5pjwx43pq44-8080.app.github.dev/store/user/${user.id}`)
+       axios.get(`${process.env.API_URL}/store/user/${user.id}`)
          .then(response => {
            const libraryData = response.data;
 
