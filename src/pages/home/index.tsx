@@ -8,19 +8,20 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode'
 import axios from "axios";
 
-interface games  {
+interface games {
   id: Number,
   name: string,
   price: string,
-  image: string, 
+  image: string,
 }
 
 const Home = () => {
   const [selectedTab, setSelectedTab] = useState("Loja");
   const [warning, setWarning] = useState<{ message: string; status: "success" | "failed" } | null>(null);
-  const [storeGames, setStoreGames] = useState<games[]>([]); 
+  const [storeGames, setStoreGames] = useState<games[]>([]);
   const [libraryGames, setLibraryGames] = useState<games[]>([]);
   const [user, setUser] = useState<{ username: string, useremail: string, id: string } | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   const handleInstall = (gameName: string) => {
@@ -79,58 +80,60 @@ const Home = () => {
   useEffect(() => {
     const userCookie = getCookie("fable-auth-v.1.0.0");
 
-    console.log("userCookie: ", userCookie)
     if (userCookie) {
       const user = jwtDecode(userCookie)
       //@ts-ignore
-      setUser({useremail: user.email, id:user.id, username:user.sub})
+      setUser({ useremail: user.email, id: user.id, username: user.sub })
 
-     //@ts-ignore
-     axios.get(`${process.env.API_URL}/games/all`)
-     .then(response => {
-       const games = response.data;
+      //@ts-ignore
+      axios.get(`${process.env.API_URL}/games/all`)
+        .then(response => {
+          const games = response.data;
 
-       // Formatação dos jogos da loja
-       const formattedStoreGames = games.map((item: any) => ({
-         id: item.id,
-         name: item.name,
-         price: item.price.toFixed(2),
-         image: item.image || "default_image_url",
-       }));
+          // Formatação dos jogos da loja
+          const formattedStoreGames = games.map((item: any) => ({
+            id: item.id,
+            name: item.name,
+            price: item.price.toFixed(2),
+            image: item.image || "default_image_url",
+          }));
 
-       setStoreGames(formattedStoreGames);
+          setStoreGames(formattedStoreGames);
 
-       //@ts-ignore
-       axios.get(`${process.env.API_URL}/store/user/${user.id}`)
-         .then(response => {
-           const libraryData = response.data;
+          //@ts-ignore
+          axios.get(`${process.env.API_URL}/store/user/${user.id}`)
+            .then(response => {
+              const libraryData = response.data;
 
-           const formattedLibraryGames = libraryData.map((item: any) => ({
-             id: item.game.id, 
-             name: item.game.name,
-             price: item.game.price.toFixed(2),
-             image: item.game.image || "default_image_url",
-           }));
+              const formattedLibraryGames = libraryData.map((item: any) => ({
+                id: item.game.id,
+                name: item.game.name,
+                price: item.game.price.toFixed(2),
+                image: item.game.image || "default_image_url",
+              }));
 
-           setLibraryGames(formattedLibraryGames);
+              setLibraryGames(formattedLibraryGames);
 
-           const filteredStoreGames = formattedStoreGames.filter((game : games) =>
-             !formattedLibraryGames.some((libraryGame: games) => libraryGame.name === game.name)
-           );
+              const filteredStoreGames = formattedStoreGames.filter((game: games) =>
+                !formattedLibraryGames.some((libraryGame: games) => libraryGame.name === game.name)
+              );
 
-           setStoreGames(filteredStoreGames);
-         })
-         .catch(error => {
-           console.error('Erro ao obter a biblioteca:', error);
-         });
+              setStoreGames(filteredStoreGames);
+              setIsLoading(false);
+            })
+            .catch(error => {
+              console.error('Erro ao obter a biblioteca:', error);
+              setIsLoading(false);
+            });
 
-     })
-     .catch(error => {
-       console.error('Erro ao obter jogos da loja:', error);
-     });
+        })
+        .catch(error => {
+          console.error('Erro ao obter jogos da loja:', error);
+          setIsLoading(false);
+        });
 
 
-    }else{
+    } else {
       navigate('/')
     }
   }, []);
@@ -164,7 +167,7 @@ const Home = () => {
           <div>
             <h2 className={style.titleHeader}>Meus Jogos</h2>
             <div className={style.Catalog}>
-            {libraryGames.length <= 0 && <h2>Nenhum jogo na sua biblioteca</h2>}
+              {libraryGames.length <= 0 && <h2>Nenhum jogo na sua biblioteca</h2>}
               {libraryGames.map((game, index) => (
                 <GameCard
                   key={`${game.id}`}
@@ -182,17 +185,22 @@ const Home = () => {
           <div>
             <h2 className={style.titleHeader}>Catálogo</h2>
             <div className={style.Catalog}>
-            {storeGames.length <= 0 && <h2>Nenhum jogo disponível</h2>}
-            {storeGames.map((game, index) => (
-                <GameCard
-                  key={`${game.id}`}
-                  name={game.name}
-                  price={game.price}
-                  image={game.image}
-                  buttonText="Comprar"
-                  onButtonClick={() => handleBuy(index)}
-                />
-              ))}
+              {isLoading ? (
+                <h2>Carregando jogos...</h2>
+              ) : storeGames.length <= 0 ? (
+                <h2>Nenhum jogo disponível</h2>
+              ) : (
+                storeGames.map((game, index) => (
+                  <GameCard
+                    key={`${game.id}`}
+                    name={game.name}
+                    price={game.price}
+                    image={game.image}
+                    buttonText="Comprar"
+                    onButtonClick={() => handleBuy(index)}
+                  />
+                ))
+              )}
             </div>
           </div>
         )}
