@@ -1,9 +1,11 @@
 .GameItem {
+    height: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
     background-color: var(--blue-700);
     padding: 0.75rem;
     border-radius: 10px;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 15rem;
     color: #FFF;
