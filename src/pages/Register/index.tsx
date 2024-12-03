@@ -26,9 +26,9 @@ const Register = () => {
     const password = formData.get('password') as string;
     const passwordRepeat = formData.get('repeat-password') as string;
 
-    // Verifica se as senhas coincidem
     if (password !== passwordRepeat) {
       setMessage('As senhas não coincidem.');
+      setTimeout(() => setMessage(null), 3000)
       return;
     }
 
@@ -53,6 +53,7 @@ const Register = () => {
       navigate('/home');
     } catch (error) {
         setMessage('Erro ao registrar o usuário.');
+        setTimeout(() => setMessage(null), 3000)
     }
   };
 

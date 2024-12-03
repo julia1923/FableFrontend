@@ -43,7 +43,7 @@ const Home = () => {
     const game = storeGames[gameIndex];
 
     setStoreGames((prev) => prev.filter((_, index) => index !== gameIndex));
-    setLibraryGames((prev) => [...prev, game]);
+    //setLibraryGames((prev) => [...prev, game]);
 
     axios.post(`${process.env.API_URL}/store/addNewStore`, {
       //@ts-ignore
