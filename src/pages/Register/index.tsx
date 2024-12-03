@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import verifyLogin from '../../utils/Auth';
+//import verifyLogin from '../../utils/Auth';
 import styles from './style.module.css';
 import Warning from '../../components/warning';
 import { useNavigate } from 'react-router-dom';

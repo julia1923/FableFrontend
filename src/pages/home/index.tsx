@@ -51,6 +51,7 @@ const Home = () => {
       user: { id: user.id },
       game: { id: game.id }
     })
+    //@ts-ignore
       .then(response => {
         setStoreGames((prev) => prev.filter((_, index) => index !== gameIndex));
         setLibraryGames((prev) => [...prev, game]);
@@ -167,7 +168,7 @@ const Home = () => {
             <h2 className={style.titleHeader}>Meus Jogos</h2>
             <div className={style.Catalog}>
               {libraryGames.length <= 0 && <h2>Nenhum jogo na sua biblioteca</h2>}
-              {libraryGames.map((game, index) => (
+              {libraryGames.map((game) => (
                 <GameCard
                   key={`${game.id}`}
                   name={game.name}

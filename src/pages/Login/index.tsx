@@ -40,6 +40,7 @@ const Login = () => {
         }; path=/; max-age=3600`; 
         navigate('/home');
       })
+      //@ts-ignore
       .catch(function (error) {
         setMessage('E-mail ou senha inválidos.'); 
       });
