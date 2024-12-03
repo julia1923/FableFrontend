@@ -99,9 +99,8 @@ const Home = () => {
           }));
 
           setStoreGames(formattedStoreGames);
-
           //@ts-ignore
-          axios.get(`${process.env.API_URL}/store/user/${user.id}`)
+          axios.get(`${process.env.API_URL}/store/user?token=${userCookie.replace(/"/g, '')}`)
             .then(response => {
               const libraryData = response.data;
 

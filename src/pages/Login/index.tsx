@@ -35,9 +35,9 @@ const Login = () => {
 
     axios.request(options)
       .then(function (response) {
-        document.cookie = `fable-auth-v.1.0.0=${encodeURIComponent(
+        document.cookie = `fable-auth-v.1.0.0=${
           JSON.stringify(response.data.Bearer)
-        )}; path=/; max-age=3600`; 
+        }; path=/; max-age=3600`; 
         navigate('/home');
       })
       .catch(function (error) {

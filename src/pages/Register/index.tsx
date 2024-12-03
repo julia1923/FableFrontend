@@ -48,7 +48,7 @@ const Register = () => {
       });
 
       const token = JSON.stringify(authResponse.data.Bearer);  
-      document.cookie = `fable-auth-v.1.0.0=${encodeURIComponent(token)}; path=/; max-age=3600`;
+      document.cookie = `fable-auth-v.1.0.0=${token}; path=/; max-age=3600`;
 
       navigate('/home');
     } catch (error) {
