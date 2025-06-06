@@ -66,7 +66,7 @@ Certifique-se de ter instalado:
 
   ```bash
    git clone https://github.com/julia1923/FableFrontend
-   cd fable
+   cd FableFrontend
   ```
 
 2. **Instalar as dependências:**
