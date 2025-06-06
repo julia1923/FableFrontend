@@ -65,7 +65,7 @@ Certifique-se de ter instalado:
 1. **Clone o repositório:**
 
   ```bash
-   git clone https://github.com/seu-usuario/fable.git
+   git clone https://github.com/julia1923/FableFrontend
    cd fable
   ```
 
